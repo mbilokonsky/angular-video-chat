@@ -5,9 +5,16 @@ angular.module("myk.videochat", ["myk.camera"])
 			var pc = new webkitRTCPeerConnection(conf);
 			var isInitiator;
 
+            Camera.register(function() {
+                localVideoElement.src = Camera.streamUrl;
+                localVideoElement.muted = true;
+                localVideoElement.play();
+            });
+
 			function initPC() {
 				Camera.register(function() {
-					pc.addStream(Camera.stream);
+					debugger;
+                    pc.addStream(Camera.stream);
 
 					pc.onicecandidate = function(e) {
 						if (e.candidate) {
@@ -25,10 +32,6 @@ angular.module("myk.videochat", ["myk.camera"])
 						remoteVideoElement.play();
 					}
 
-					localVideoElement.src = Camera.streamUrl;
-					localVideoElement.muted = true;
-					localVideoElement.play();
-
 					socket.send(JSON.stringify({
 						action: "ready"
 					}));
@@ -39,12 +42,12 @@ angular.module("myk.videochat", ["myk.camera"])
 				var message = JSON.parse(event.data);
 				switch(message.action) {
 					case "handshake":
-						isInitiator = message.initiate;
+                        isInitiator = message.initiate;
 						initPC();
 						break;
 
 					case "ice":
-						var candidate = new RTCIceCandidate({
+                        var candidate = new RTCIceCandidate({
 							sdpMLineIndex: message.label,
 							candidate: message.candidate
 						});
@@ -52,12 +55,16 @@ angular.module("myk.videochat", ["myk.camera"])
 						pc.addIceCandidate(candidate);
 						break;
 
-					case "desc": 
-						pc.setRemoteDescription(new RTCSessionDescription(message.desc));
+					case "desc":
+                        pc.setRemoteDescription(new RTCSessionDescription(message.desc));
+                        if (!isInitiator) {
+                            doAnswer();
+                        }
 						break;
 
 					case "ready":
-						if (isInitiator) {
+                        if (isInitiator) {
+                            console.log("\t...and starting chat!");
 							startVideoChat();
 						}
 
