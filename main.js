@@ -71,7 +71,7 @@ angular.module("myk.videochat", ["myk.camera"])
 
 			function setLocalAndSendMessage(desc) {
 				pc.setLocalDescription(new RTCSessionDescription(desc));
-				socket.send(JSON.stringify(action:"desc", desc: desc));
+				socket.send(JSON.stringify({action:"desc", desc: desc}));
 			}
 
 			function doCall() {
