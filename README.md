@@ -6,6 +6,8 @@ An angular directive for initiating peer-to-peer video chat in the browser.
 Usage example:
 
 ```
+var myApp = angular.module("myApp", ["myk.videochat"]);
+
 myApp.directive("videoChat", ["VideoChat", function(VideoChat) {
 
         return {
