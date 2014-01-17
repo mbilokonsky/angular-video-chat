@@ -1,0 +1,28 @@
+{
+  "name": "angular-video-chat",
+  "version": "0.2.0",
+  "homepage": "https://github.com/mbilokonsky/AngularVideoChat",
+  "authors": [
+    "mykola <mbilokonsky@gmail.com>"
+  ],
+  "description": "A wrapper for webRTC powered peer-to-peer video chatting.",
+  "main": "main.js",
+  "keywords": [
+    "angular",
+    "webrtc",
+    "video",
+    "chat"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.6",
+    "angular-gum": "~0.2.7"
+  }
+}
