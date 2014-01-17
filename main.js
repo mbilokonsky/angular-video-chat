@@ -40,7 +40,7 @@ angular.module("myk.videochat", ["myk.camera"])
 				switch(message.action) {
 					case "handshake":
 						isInitiator = message.initiate;
-						initPc();
+						initPC();
 						break;
 
 					case "ice":
