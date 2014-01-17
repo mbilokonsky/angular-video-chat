@@ -41,9 +41,14 @@ myApp.directive("videoChat", ["VideoChat", function(VideoChat) {
 Note that this service has very specific server-side dependencies. This can probably be abstracted away, but that video socket I'm using there? On the server, the rules are as follows:
 
 1) When a socket connects to channel 'foo', it waits until a second socket connects to the same channel.
+
 2) When two sockets are connected, they are paired off and the following JSON is sent to each:
+	```
 	{
 		"action":"handshake",
-		"initiator": {initial socket gets true, subsequent socket gets false}
+		"initiator": true | false*
 	}
+	```
+* I send 'true' to the first socket that connected and 'false' to the second, but it doesn't really matter as long as only one is true.
+
 3) From then on, the web socket server acts as a router. All inputs from socketA get immediately sent to socket B, and vice versa.
