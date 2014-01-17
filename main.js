@@ -25,6 +25,10 @@ angular.module("myk.videochat", ["myk.camera"])
 						remoteVideoElement.play();
 					}
 
+					localVideoElement.src = Camera.streamUrl;
+					localVideoElement.muted = true;
+					localVideoElement.play();
+
 					socket.send(JSON.stringify({
 						action: "ready"
 					}));
